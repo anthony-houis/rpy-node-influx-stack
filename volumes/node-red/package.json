@@ -1,0 +1,13 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-influxdb": "~0.6.1",
+        "node-red-contrib-simpletime": "~2.10.4",
+        "node-red-contrib-stackhero-mysql": "~1.0.5",
+        "node-red-dashboard": "~3.6.1",
+        "node-red-node-serialport": "~1.0.4"
+    }
+}

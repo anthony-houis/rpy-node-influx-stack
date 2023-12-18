@@ -1,0 +1,32 @@
+version: "2"
+services:
+    node-red:
+        container_name: nodered_container
+        image: nodered/node-red:latest
+        ports:
+            - "1880:1880"
+        volumes:
+            - ./volumes/node-red:/data
+        networks:
+            solar_network:
+                ipv4_address: 172.20.0.4
+
+    influx:
+        container_name: influx_container
+        image: influxdb:latest
+        environment:
+            - INFLUXDB_DB=db0
+            - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+            - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+        volumes:
+            - ./volumes/influxdb:/var/lib/influxdb
+            - ./volumes/influxdb/init-influxdb.sh:/init-influxdb.sh
+        networks:
+            solar_network:
+                ipv4_address: 172.20.0.5
+
+networks:
+  solar_network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24

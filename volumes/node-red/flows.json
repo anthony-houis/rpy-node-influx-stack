@@ -1,0 +1,452 @@
+[
+    {
+        "id": "9da671f559459f07",
+        "type": "tab",
+        "label": "Flux 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "22852b72315c0690",
+        "type": "serial-port",
+        "serialport": "/dev/ttyACM0",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "5d72a8f50ace86ca",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "d3120a5f62943c06",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "b2c7ad6d339c5f20",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "5d72a8f50ace86ca",
+        "order": 1,
+        "disp": true,
+        "width": "20",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "696244d9d325f3a5",
+        "type": "Stackhero-MySQL-Server",
+        "name": "",
+        "host": "localhost",
+        "port": "3306",
+        "tls": false,
+        "database": "ecg"
+    },
+    {
+        "id": "ee996945d6e245bc",
+        "type": "serial in",
+        "z": "9da671f559459f07",
+        "name": "/dev/ttyACM0",
+        "serial": "22852b72315c0690",
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "7db923ac3fd459f4"
+            ]
+        ]
+    },
+    {
+        "id": "0e32617cf9d91eed",
+        "type": "debug",
+        "z": "9da671f559459f07",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "a8c1fd764617d2f3",
+        "type": "function",
+        "z": "9da671f559459f07",
+        "name": "sendToChart",
+        "func": "var o;\nvar hr={};\nvar hrv={};\nvar ecg_value={};\no = msg.payload.split(\",\");\nhr.payload=o[0];\nhrv.payload=o[1];\necg_value.payload=o[2];\nreturn ecg_value;\n",
+        "outputs": 1,
+        "timeout": "0",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "cd57501bad9b90a0",
+                "dbd58202016f7d7a"
+            ]
+        ]
+    },
+    {
+        "id": "cd57501bad9b90a0",
+        "type": "ui_chart",
+        "z": "9da671f559459f07",
+        "name": "",
+        "group": "b2c7ad6d339c5f20",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Live Heart Beat",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "200",
+        "removeOlder": 1,
+        "removeOlderPoints": "500",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#e01b24",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 760,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7db923ac3fd459f4",
+        "type": "trigger",
+        "z": "9da671f559459f07",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "pay",
+        "op2type": "payl",
+        "duration": "500",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 270,
+        "y": 180,
+        "wires": [
+            [
+                "a8c1fd764617d2f3"
+            ]
+        ]
+    },
+    {
+        "id": "dbd58202016f7d7a",
+        "type": "function",
+        "z": "9da671f559459f07",
+        "name": "prepareForDB",
+        "func": "var hrb;\nhrb = parseInt(msg.payload);\nif(hrb<=30){\n    var maladie=\"Bradycardia\";\n    msg.topic = \"INSERT INTO `ecg` (`date`, `hrb`, `maladie`) values (now(), '\"+hrb+\"', '\"+maladie+\"');\";\n    msg.payload = { \"hr\" : hrb };\n    return msg;\n}\nif(hrb>120){\n    var maladie=\"Tachycardia\";\n    msg.topic = \"INSERT INTO `ecg` (`date`, `hrb`, `maladie`) values (now(), '\"+hrb+\"', '\"+maladie+\"');\";\n    msg.payload = { \"hr\" : hrb };\n    return msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 440,
+        "wires": [
+            [
+                "434ebb2e5e4df67b",
+                "0e32617cf9d91eed"
+            ]
+        ]
+    },
+    {
+        "id": "434ebb2e5e4df67b",
+        "type": "Stackhero-MySQL",
+        "z": "9da671f559459f07",
+        "server": "696244d9d325f3a5",
+        "name": "ecg_table_insert",
+        "x": 700,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b6a95c5f33cb7b7f",
+        "type": "ui_form",
+        "z": "9da671f559459f07",
+        "name": "",
+        "label": "Periode",
+        "group": "b2c7ad6d339c5f20",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Date From",
+                "value": "dateMax",
+                "type": "date",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Date To",
+                "value": "dateMin",
+                "type": "date",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "dateMax": "",
+            "dateMin": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "payload",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 100,
+        "y": 620,
+        "wires": [
+            [
+                "9c56ce29b10a51a1"
+            ]
+        ]
+    },
+    {
+        "id": "9c56ce29b10a51a1",
+        "type": "function",
+        "z": "9da671f559459f07",
+        "name": "select_data",
+        "func": "var dateMin = msg.payload.dateMin;\nvar dateMax = msg.payload.dateMax;\n\nfunction setCharAt(str,index,chr) {\n    if(index > str.length-1) return str;\n    return str.substring(0,index) + chr + str.substring(index+1);\n}\n\ndateMin = setCharAt(dateMin,10, \" \");\ndateMax = setCharAt(dateMax,10, \" \");\n\ndateMin = dateMin.substring(0, dateMin.length - 5);\ndateMax = dateMax.substring(0, dateMax.length - 5);\nmsg.topic = \"SELECT date, hrb FROM ecg where date between'\"+dateMax+\"' and '\"+dateMin+\"';\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 620,
+        "wires": [
+            [
+                "04b20e08284c3342"
+            ]
+        ]
+    },
+    {
+        "id": "aa37dc7920ab0195",
+        "type": "ui_chart",
+        "z": "9da671f559459f07",
+        "name": "",
+        "group": "b2c7ad6d339c5f20",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-200",
+        "ymax": "200",
+        "removeOlder": 1,
+        "removeOlderPoints": "200",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "04b20e08284c3342",
+        "type": "Stackhero-MySQL",
+        "z": "9da671f559459f07",
+        "server": "696244d9d325f3a5",
+        "name": "ecg_table_insert",
+        "x": 540,
+        "y": 620,
+        "wires": [
+            [
+                "6e7eb074950fda49"
+            ]
+        ]
+    },
+    {
+        "id": "6e7eb074950fda49",
+        "type": "function",
+        "z": "9da671f559459f07",
+        "name": "format_data",
+        "func": "const tableauDates = msg.payload;\n\nvar data = [];\nvar month = [];\nfor (let i = 0; i < tableauDates.length; i++) {\n    data.push(tableauDates[i].hrb);\n    month.push(tableauDates[i].date);\n};\n\nmsg.payload = [{\n    series: [\"\"],\n    data: [data],\n    labels: month\n}];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 620,
+        "wires": [
+            [
+                "aa37dc7920ab0195"
+            ]
+        ]
+    }
+]
