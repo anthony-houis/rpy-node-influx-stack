@@ -148,7 +148,7 @@
         "type": "Stackhero-MySQL-Server",
         "name": "",
         "host": "localhost",
-        "port": "3306",
+        "port": "8086",
         "tls": false,
         "database": "ecg"
     },
