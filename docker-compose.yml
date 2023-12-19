@@ -12,7 +12,7 @@ services:
                 ipv4_address: 172.20.0.4
 
     influxdb:
-        image: quay.io/influxdb/influxdb:v2.0.3
+        image: arm32v7/influxdb:1.8.10
         container_name: influxdb_container
         environment:
           - INFLUXDB_DB=ecg
