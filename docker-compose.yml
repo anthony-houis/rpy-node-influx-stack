@@ -17,6 +17,7 @@ services:
         environment:
           - INFLUXDB_DB=ecg
           - INFLUXDB_USER=rpaha
+          - INFLUXDB_USER_PASSWORD=rpaha
           - INFLUXDB_ADMIN_ENABLED=true
           - INFLUXDB_ADMIN_USER=rpaha
           - INFLUXDB_ADMIN_PASSWORD=rpaha
