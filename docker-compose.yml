@@ -15,9 +15,11 @@ services:
         image: arm32v7/influxdb:1.8.10
         container_name: influxdb_container
         environment:
+          - INFLUXDB_USER=rpaha
+          - INFLUXDB_USER_PASSWORD=rpaha
+          - INFLUXDB_READ_USER=rpaha
+          - INFLUXDB_READ_USER_PASSWORD=rpaha
           - INFLUXDB_DB=ecg
-          - INFLUXDB_USERNAME=rpaha
-          - INFLUXDB_PASSWORD=rpaha
           - INFLUXDB_ADMIN_ENABLED=true
           - INFLUXDB_ADMIN_USER=rpaha
           - INFLUXDB_ADMIN_PASSWORD=rpaha
