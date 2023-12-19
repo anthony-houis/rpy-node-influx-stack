@@ -22,9 +22,7 @@ services:
           - INFLUXDB_ADMIN_USER=rpaha
           - INFLUXDB_ADMIN_PASSWORD=rpaha
         ports:
-          - "8086:8086"
-          - "8082:8082"
-          - "8089:8089/udp"
+          - "3306:3306"
         volumes:
             - ./volumes/influxdb:/var/lib/influxdb
         networks:
