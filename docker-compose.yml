@@ -27,6 +27,7 @@ services:
           - "8086:8086"
         volumes:
             - ./volumes/influxdb:/var/lib/influxdb
+            - ./volumes/influxdb/init-influxdb.sh:/init-influxdb.sh
         networks:
             solar_network:
                 ipv4_address: 172.20.0.5
