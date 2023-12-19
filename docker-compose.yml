@@ -15,8 +15,8 @@ services:
         image: quay.io/influxdb/influxdb:v2.0.3
         container_name: influxdb_container
         environment:
-          - INFLUXDB_DB=telegraf
-          - INFLUXDB_USER=telegraf
+          - INFLUXDB_DB=ecg
+          - INFLUXDB_USER=rpaha
           - INFLUXDB_ADMIN_ENABLED=true
           - INFLUXDB_ADMIN_USER=rpaha
           - INFLUXDB_ADMIN_PASSWORD=rpaha
