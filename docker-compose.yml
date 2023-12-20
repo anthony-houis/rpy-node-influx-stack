@@ -1,36 +1,29 @@
 version: "2"
 services:
-    node-red:
-        container_name: nodered_container
-        image: nodered/node-red:latest
-        ports:
-            - "1880:1880"
-        volumes:
-            - ./volumes/node-red:/data
-        networks:
-            solar_network:
-                ipv4_address: 172.20.0.4
+  node-red:
+    container_name: nodered_container
+    image: nodered/node-red:latest
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./volumes/node-red:/data
+    networks:
+      solar_network:
+        ipv4_address: 172.20.0.4
 
-    influxdb:
-        image: arm32v7/influxdb:1.8.10
-        container_name: influxdb_container
-        environment:
-          - INFLUXDB_USER=rpaha
-          - INFLUXDB_USER_PASSWORD=rpaha
-          - INFLUXDB_READ_USER=rpaha
-          - INFLUXDB_READ_USER_PASSWORD=rpaha
-          - INFLUXDB_DB=ecg
-          - INFLUXDB_ADMIN_ENABLED=true
-          - INFLUXDB_ADMIN_USER=rpaha
-          - INFLUXDB_ADMIN_PASSWORD=rpaha
-        ports:
-          - "8086:8086"
-        volumes:
-            - ./volumes/influxdb:/var/lib/influxdb
-            - ./volumes/influxdb/init/init.sh:/init-influxdb.sh
-        networks:
-            solar_network:
-                ipv4_address: 172.20.0.5
+  mysql:
+    container_name: mysql_container
+    image: mysql:latest
+    ports:
+      - "3360:3306"
+    volumes:
+      - ./volumes/mysql/data:/var/lib/mysql
+      - ./volumes/mysql/init:/docker-entrypoint-initdb.d/:ro
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      solar_network:
+        ipv4_address: 172.20.0.5
 
 networks:
   solar_network:
