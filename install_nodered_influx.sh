@@ -1,16 +1,18 @@
 #!/bin/bash
 
+HOME_DIR="/home/rpaha"
+
 # Installe Node-RED
 echo "Installation de Node-RED..."
-apt-get install npm
-npm install -g --unsafe-perm node-red
+apt install -y npm
+npm install -gy --unsafe-perm node-red
 
 # Installe InfluxDB
 echo "Installation d'InfluxDB..."
-apt-get update
+apt update
 curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
 echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" >> sudo tee /etc/apt/sources.list
-apt-get update && apt-get install influxdb
+apt update && apt install -y influxdb
 
 # Démarrage des services
 echo "Démarrage des services..."
@@ -22,17 +24,17 @@ sleep 5
 
 # Copie des fichiers locaux vers les dossiers de configuration
 echo "Copie des fichiers de configuration..."
-cp volumes/node-red/settings.js ~/.node-red/settings.js
-cp volumes/node-red/flows.json ~/.node-red/flows.json
-cp volumes/node-red/flows_cred.json ~/.node-red/flows_cred.json
-cp volumes/node-red/package-lock.json ~/.node-red/package-lock.json
-cp volumes/node-red/package.json ~/.node-red/package.json
-cp volumes/node-red/.config.nodes.json ~/.node-red/.config.nodes.json
-cp volumes/node-red/.config.nodes.json.backup ~/.node-red/.config.nodes.json.backup
-cp volumes/node-red/.config.runtime.json ~/.node-red/.config.runtime.json
-cp volumes/node-red/.config.user.json ~/.node-red/.config.user.json
-cp volumes/node-red/.config.user.json.backup ~/.node-red/.config.user.json.backup
-cp -r volumes/node-red/node_modules ~/.node-red/node_modules
+cp volumes/node-red/settings.js $HOME_DIR/.node-red/settings.js
+cp volumes/node-red/flows.json $HOME_DIR/.node-red/flows.json
+cp volumes/node-red/flows_cred.json $HOME_DIR/.node-red/flows_cred.json
+cp volumes/node-red/package-lock.json $HOME_DIR/.node-red/package-lock.json
+cp volumes/node-red/package.json $HOME_DIR/.node-red/package.json
+cp volumes/node-red/.config.nodes.json $HOME_DIR/.node-red/.config.nodes.json
+cp volumes/node-red/.config.nodes.json.backup $HOME_DIR/.node-red/.config.nodes.json.backup
+cp volumes/node-red/.config.runtime.json $HOME_DIR/.node-red/.config.runtime.json
+cp volumes/node-red/.config.user.json $HOME_DIR/.node-red/.config.user.json
+cp volumes/node-red/.config.user.json.backup $HOME_DIR/.node-red/.config.user.json.backup
+cp -r volumes/node-red/node_modules $HOME_DIR/.node-red/node_modules
 
 # Création d'une table dans InfluxDB
 echo "Création d'une table dans InfluxDB..."
