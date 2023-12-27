@@ -31,6 +31,7 @@ influx -execute "CREATE RETENTION POLICY \"default\" ON \"collector\" DURATION 2
 # Copie des fichiers locaux vers les dossiers de configuration
 echo "Copie des fichiers de configuration..."
 mkdir $HOME_DIR/.node-red
+chown -R rpaha:rpaha $HOME_DIR/.node-red
 cp volumes/node-red/settings.js $HOME_DIR/.node-red/settings.js
 cp volumes/node-red/flows.json $HOME_DIR/.node-red/flows.json
 cp volumes/node-red/flows_cred.json $HOME_DIR/.node-red/flows_cred.json
