@@ -26,7 +26,7 @@ sleep 5
 echo "Création d'une table dans InfluxDB..."
 influx -execute "CREATE DATABASE collector"
 influx -execute "USE collector"
-influx -execute "CREATE RETENTION POLICY \"default\" ON \"collector\" DURATION 2m REPLICATION 1 DEFAULT"
+influx -execute "CREATE RETENTION POLICY \"default\" ON \"collector\" DURATION 90d REPLICATION 1 DEFAULT"
 
 # Copie des fichiers locaux vers les dossiers de configuration
 echo "Copie des fichiers de configuration..."
@@ -40,8 +40,8 @@ cp volumes/node-red/package.json $HOME_DIR/.node-red/package.json
 cp volumes/node-red/.config.nodes.json $HOME_DIR/.node-red/.config.nodes.json
 cp volumes/node-red/.config.nodes.json.backup $HOME_DIR/.node-red/.config.nodes.json.backup
 cp volumes/node-red/.config.runtime.json $HOME_DIR/.node-red/.config.runtime.json
-cp volumes/node-red/.config.user.json $HOME_DIR/.node-red/.config.user.json
-cp volumes/node-red/.config.user.json.backup $HOME_DIR/.node-red/.config.user.json.backup
+cp volumes/node-red/.config.users.json $HOME_DIR/.node-red/.config.users.json
+cp volumes/node-red/.config.users.json.backup $HOME_DIR/.node-red/.config.users.json.backup
 cp -r volumes/node-red/node_modules $HOME_DIR/.node-red/node_modules
 
 # Redémarrage des services
