@@ -47,6 +47,5 @@ cp -r volumes/node-red/node_modules $HOME_DIR/.node-red/node_modules
 # Redémarrage des services
 echo "Redémarrage des services..."
 systemctl restart influxdb
-node-red &
 
 echo "Installation terminée."
