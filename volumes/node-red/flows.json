@@ -153,6 +153,20 @@
         "database": "ecg"
     },
     {
+        "id": "5a2f5cb7939c765e",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "collector",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    },
+    {
         "id": "ee996945d6e245bc",
         "type": "serial in",
         "z": "9da671f559459f07",
@@ -278,7 +292,7 @@
         "type": "function",
         "z": "9da671f559459f07",
         "name": "prepareForDB",
-        "func": "var hrb;\nhrb = parseInt(msg.payload);\nif(hrb<=30){\n    var maladie=\"Bradycardia\";\n    msg.topic = \"INSERT INTO `ecg` (`date`, `hrb`, `maladie`) values (now(), '\"+hrb+\"', '\"+maladie+\"');\";\n    msg.payload = { \"hr\" : hrb };\n    return msg;\n}\nif(hrb>120){\n    var maladie=\"Tachycardia\";\n    msg.topic = \"INSERT INTO `ecg` (`date`, `hrb`, `maladie`) values (now(), '\"+hrb+\"', '\"+maladie+\"');\";\n    msg.payload = { \"hr\" : hrb };\n    return msg;\n}",
+        "func": "var hrb;\nhrb = parseInt(msg.payload);\nif(hrb<=30){\n    var maladie=\"Bradycardia\";\n    msg.query = \"INSERT INTO `ecg` (`date`, `hrb`, `maladie`) values (now(), '\"+hrb+\"', '\"+maladie+\"');\";\n    msg.payload = { \"hr\" : hrb };\n    return msg;\n}\nif(hrb>120){\n    var maladie=\"Tachycardia\";\n    msg.query = \"INSERT INTO `ecg` (`date`, `hrb`, `maladie`) values (now(), '\"+hrb+\"', '\"+maladie+\"');\";\n    msg.payload = { \"hr\" : hrb };\n    return msg;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -289,21 +303,9 @@
         "y": 440,
         "wires": [
             [
-                "434ebb2e5e4df67b",
-                "0e32617cf9d91eed"
+                "0e32617cf9d91eed",
+                "f527c01af1e57709"
             ]
-        ]
-    },
-    {
-        "id": "434ebb2e5e4df67b",
-        "type": "Stackhero-MySQL",
-        "z": "9da671f559459f07",
-        "server": "696244d9d325f3a5",
-        "name": "ecg_table_insert",
-        "x": 700,
-        "y": 520,
-        "wires": [
-            []
         ]
     },
     {
@@ -367,7 +369,7 @@
         "y": 620,
         "wires": [
             [
-                "04b20e08284c3342"
+                "16661efd186b6886"
             ]
         ]
     },
@@ -416,20 +418,6 @@
         ]
     },
     {
-        "id": "04b20e08284c3342",
-        "type": "Stackhero-MySQL",
-        "z": "9da671f559459f07",
-        "server": "696244d9d325f3a5",
-        "name": "ecg_table_insert",
-        "x": 540,
-        "y": 620,
-        "wires": [
-            [
-                "6e7eb074950fda49"
-            ]
-        ]
-    },
-    {
         "id": "6e7eb074950fda49",
         "type": "function",
         "z": "9da671f559459f07",
@@ -446,6 +434,43 @@
         "wires": [
             [
                 "aa37dc7920ab0195"
+            ]
+        ]
+    },
+    {
+        "id": "f527c01af1e57709",
+        "type": "influxdb out",
+        "z": "9da671f559459f07",
+        "influxdb": "5a2f5cb7939c765e",
+        "name": "ecg_insert",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 790,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "16661efd186b6886",
+        "type": "influxdb in",
+        "z": "9da671f559459f07",
+        "influxdb": "5a2f5cb7939c765e",
+        "name": "ecg_get",
+        "query": "",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 520,
+        "y": 620,
+        "wires": [
+            [
+                "6e7eb074950fda49"
             ]
         ]
     }
