@@ -28,18 +28,9 @@ influx -execute "CREATE DATABASE collector"
 influx -execute "USE collector"
 influx -execute "CREATE RETENTION POLICY \"default\" ON \"collector\" DURATION 2m REPLICATION 1 DEFAULT"
 
-# Redémarrage des services
-echo "Redémarrage des services..."
-node-red
-
-sleep 20
-
-systemctl restart influxdb
-
-echo "Installation terminée."
-
 # Copie des fichiers locaux vers les dossiers de configuration
 echo "Copie des fichiers de configuration..."
+mkdir $HOME_DIR/.node-red
 cp volumes/node-red/settings.js $HOME_DIR/.node-red/settings.js
 cp volumes/node-red/flows.json $HOME_DIR/.node-red/flows.json
 cp volumes/node-red/flows_cred.json $HOME_DIR/.node-red/flows_cred.json
@@ -51,3 +42,10 @@ cp volumes/node-red/.config.runtime.json $HOME_DIR/.node-red/.config.runtime.jso
 cp volumes/node-red/.config.user.json $HOME_DIR/.node-red/.config.user.json
 cp volumes/node-red/.config.user.json.backup $HOME_DIR/.node-red/.config.user.json.backup
 cp -r volumes/node-red/node_modules $HOME_DIR/.node-red/node_modules
+
+# Redémarrage des services
+echo "Redémarrage des services..."
+systemctl restart influxdb
+node-red &
+
+echo "Installation terminée."
