@@ -10,23 +10,23 @@ npm install -gy --unsafe-perm node-red
 # Installe InfluxDB
 echo "Installation d'InfluxDB..."
 apt update
-curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" >> sudo tee /etc/apt/sources.list
-apt update && apt install -y influxdb && apt install -y influxdb-client
+apt install -y mysql-server
 
 # Démarrage des services
 echo "Démarrage des services..."
-systemctl start influxdb
-systemctl enable influxdb
+systemctl start mysql
+systemctl enable mysql
 
 # Attendre un court instant pour s'assurer que InfluxDB est démarré
 sleep 5
 
 # Création d'une table dans InfluxDB
 echo "Création d'une table dans InfluxDB..."
-influx -execute "CREATE DATABASE collector"
-influx -execute "USE collector"
-influx -execute "CREATE RETENTION POLICY \"default\" ON \"collector\" DURATION 90d REPLICATION 1 DEFAULT"
+mysql -e "CREATE USER 'rpaha'@'localhost' IDENTIFIED BY 'rpaha';"
+mysql -e "CREATE DATABASE collector;"
+mysql -e "GRANT ALL PRIVILEGES ON collector.* TO 'rpaha'@'localhost';"
+mysql -e "FLUSH PRIVILEGES;"
+mysql -e "USE collector; CREATE TABLE IF NOT EXISTS \`collector\`.\`ecg\` (\`id\` int(11) NOT NULL AUTO_INCREMENT, \`date\` datetime NOT NULL, \`hrb\` INT NOT NULL, PRIMARY KEY (\`id\`));"
 
 # Copie des fichiers locaux vers les dossiers de configuration
 echo "Copie des fichiers de configuration..."
@@ -46,6 +46,6 @@ cp -r volumes/node-red/node_modules $HOME_DIR/.node-red/node_modules
 
 # Redémarrage des services
 echo "Redémarrage des services..."
-systemctl restart influxdb
+systemctl restart mysql
 
 echo "Installation terminée."
