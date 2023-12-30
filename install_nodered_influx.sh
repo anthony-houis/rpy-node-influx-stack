@@ -10,12 +10,12 @@ npm install -gy --unsafe-perm node-red
 # Installe InfluxDB
 echo "Installation d'InfluxDB..."
 apt update
-apt install -y mysql-server
+apt install -y mariadb-server
 
 # Démarrage des services
-echo "Démarrage des services..."
-systemctl start mysql
-systemctl enable mysql
+# echo "Démarrage des services..."
+# systemctl start mysql
+# systemctl enable mysql
 
 # Attendre un court instant pour s'assurer que InfluxDB est démarré
 sleep 5
@@ -45,7 +45,7 @@ cp volumes/node-red/.config.users.json.backup $HOME_DIR/.node-red/.config.users.
 cp -r volumes/node-red/node_modules $HOME_DIR/.node-red/node_modules
 
 # Redémarrage des services
-echo "Redémarrage des services..."
-systemctl restart mysql
+# echo "Redémarrage des services..."
+# systemctl restart mysql
 
 echo "Installation terminée."
